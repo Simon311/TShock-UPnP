@@ -22,7 +22,7 @@ namespace UPnP
 
         public override string Author
         {
-            get { return "Simon311"; }
+			get { return "Simon311"; }
         }
 
         public override string Description
