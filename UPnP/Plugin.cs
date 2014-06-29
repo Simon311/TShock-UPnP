@@ -7,7 +7,7 @@ using System.Reflection;
 
 namespace UPnP
 {
-    [ApiVersion(1, 15)]
+    [ApiVersion(1, 16)]
     public class Plugin : TerrariaPlugin
     {
         public override Version Version
