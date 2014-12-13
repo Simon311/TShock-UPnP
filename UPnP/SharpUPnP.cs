@@ -7,7 +7,7 @@ using System.Diagnostics;
 using System.Net;
 using System.Xml;
 using System.IO;
-using Terraria;
+using TerrariaApi.Server;
 using TShockAPI;
 
 namespace UPnP
@@ -46,7 +46,7 @@ namespace UPnP
                 }
             }
 
-            if (Main.runningMono & Environment.OSVersion.Platform == PlatformID.Unix)
+            if (ServerApi.RunningMono & Environment.OSVersion.Platform == PlatformID.Unix)
             {
                 Process proc = new Process();
                 proc.EnableRaisingEvents = false;
