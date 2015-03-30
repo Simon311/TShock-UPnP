@@ -60,7 +60,7 @@ namespace UPnP
                 try
                 {
                     Output = Output.Trim(new Char[] { ' ', '\r', '\n' });
-                    Log.Info("(UPnP-Linux) Attempting to parse IP: " + Output);
+                    TShock.Log.Info("(UPnP-Linux) Attempting to parse IP: " + Output);
                     Console.WriteLine("(UPnP-Linux) Attempting to parse IP: " + Output);
                     IPAddress Parsed = IPAddress.Parse(Output);
                     if (Parsed != null & Parsed.AddressFamily == AddressFamily.InterNetwork & Parsed.ToString() != "0.0.0.0")
@@ -69,13 +69,13 @@ namespace UPnP
                     }
                     else
                     {
-                        Log.Error("(UPnP-Linux) Invalid Gateway IP.");
+                        TShock.Log.Error("(UPnP-Linux) Invalid Gateway IP.");
                         Console.WriteLine("(UPnP-Linux) Invalid Gateway IP.");
                     }
                 }
                 catch
                 {
-                    Log.Error("(UPnP-Linux) Unable to parse IP.");
+                    TShock.Log.Error("(UPnP-Linux) Unable to parse IP.");
                     Console.WriteLine("(UPnP-Linux) Unable to parse IP.");
                 }
             }
@@ -90,7 +90,7 @@ namespace UPnP
             
             if (Gateways.Count < 1)  
             {
-                Log.Error("(UPnP) No Gateway IP address!");
+                TShock.Log.Error("(UPnP) No Gateway IP address!");
                 Console.WriteLine("(UPnP) No Gateway IP address!");
                 return false;
             };
@@ -98,7 +98,7 @@ namespace UPnP
             foreach (IPAddress gwInfo in Gateways)
             {
                 bool flag = false;
-                Log.Info("(UPnP) Attemting Gateway IP: " + gwInfo.ToString());
+                TShock.Log.Info("(UPnP) Attemting Gateway IP: " + gwInfo.ToString());
                 Console.WriteLine("(UPnP) Attemting Gateway IP: " + gwInfo.ToString());
 
                 Socket s = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
@@ -126,7 +126,7 @@ namespace UPnP
                 catch
                 {
                     Console.WriteLine("(UPnP) Gateway " + gwInfo.ToString() + " timeout");
-                    Log.Info("(UPnP) Gateway " + gwInfo.ToString() + " timeout");
+                    TShock.Log.Info("(UPnP) Gateway " + gwInfo.ToString() + " timeout");
                     flag = false;
                 }
                 string queryResponse = "";

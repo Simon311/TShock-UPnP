@@ -7,7 +7,7 @@ using System.Reflection;
 
 namespace UPnP
 {
-    [ApiVersion(1, 16)]
+    [ApiVersion(1, 17)]
     public class Plugin : TerrariaPlugin
     {
         public override Version Version
@@ -82,18 +82,18 @@ namespace UPnP
 						if (!String.IsNullOrEmpty(IP)) Console.WriteLine("(UPnP) Your IP: " + SharpUPnP.GetExternalIP().ToString());
 					}
 					catch { }
-                    Log.Info("(UPnP) Port Forward succesful.");
+                    TShock.Log.Info("(UPnP) Port Forward succesful.");
                 }
                 else
                 {
                     Console.WriteLine("(UPnP) Port Forward failed. (Port already taken?)");
-                    Log.Error("(UPnP) Port Forward failed. (Port already taken?)");
+                    TShock.Log.Error("(UPnP) Port Forward failed. (Port already taken?)");
                 }
             }
             else
             {
                 Console.WriteLine("(UPnP) Failed to discover UPnP service.");
-                Log.Error("(UPnP) Failed to discover UPnP service.");
+                TShock.Log.Error("(UPnP) Failed to discover UPnP service.");
             }
         }
 
@@ -132,20 +132,20 @@ namespace UPnP
                     if (iUdp & iTcp)
                     {
                         Console.WriteLine("(UPnP) Port Forward on request succesful.");
-                        Log.Info("(UPnP) Port Forward on request succesful.");
+                        TShock.Log.Info("(UPnP) Port Forward on request succesful.");
                         args.Player.SendMessage("(UPnP) Port Forward succesful.", Color.PaleGoldenrod);
                     }
                     else
                     {
                         Console.WriteLine("(UPnP) Port Forward on request failed. (Port already taken?)");
-                        Log.Error("(UPnP) Port Forward on request failed. (Port already taken?)");
+                        TShock.Log.Error("(UPnP) Port Forward on request failed. (Port already taken?)");
                         args.Player.SendMessage("(UPnP) Port Forward failed. (Port already taken?)", Color.PaleGoldenrod);
                     }
                 }
                 else
                 {
                     Console.WriteLine("(UPnP) Failed to dispose port.");
-                    Log.Error("(UPnP) Failed to dispose port.");
+                    TShock.Log.Error("(UPnP) Failed to dispose port.");
                     args.Player.SendMessage("(UPnP) Failed to dispose port.", Color.PaleGoldenrod);
                 }
                 return;
