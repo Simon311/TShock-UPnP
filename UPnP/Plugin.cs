@@ -7,7 +7,7 @@ using System.Reflection;
 
 namespace UPnP
 {
-    [ApiVersion(1, 17)]
+    [ApiVersion(1, 18)]
     public class Plugin : TerrariaPlugin
     {
         public override Version Version
@@ -61,18 +61,16 @@ namespace UPnP
             if (Discovered)
             {
 				RestPort = TShock.Config.RestApiPort;
-                SharpUPnP.DeleteForwardingRule(Netplay.serverPort, ProtocolType.Udp);
-                SharpUPnP.DeleteForwardingRule(Netplay.serverPort, ProtocolType.Tcp);
-				SharpUPnP.DeleteForwardingRule(RestPort, ProtocolType.Udp);
+                //SharpUPnP.DeleteForwardingRule(Netplay.ListenPort, ProtocolType.Udp);
+                SharpUPnP.DeleteForwardingRule(Netplay.ListenPort, ProtocolType.Tcp);
+				//SharpUPnP.DeleteForwardingRule(RestPort, ProtocolType.Udp);
 				SharpUPnP.DeleteForwardingRule(RestPort, ProtocolType.Tcp);
-                bool Udp = SharpUPnP.ForwardPort(Netplay.serverPort, ProtocolType.Udp, "TShock @ Port: " + Netplay.serverPort);
-                bool Tcp = SharpUPnP.ForwardPort(Netplay.serverPort, ProtocolType.Tcp, "TShock @ Port: " + Netplay.serverPort);
+                //bool Udp = SharpUPnP.ForwardPort(Netplay.ListenPort, ProtocolType.Udp, "TShock @ Port: " + Netplay.ListenPort);
+                bool Tcp = SharpUPnP.ForwardPort(Netplay.ListenPort, ProtocolType.Tcp, "TShock @ Port: " + Netplay.ListenPort);
 				if (TShock.Config.RestApiEnabled)
-				{
-					Udp &= SharpUPnP.ForwardPort(RestPort, ProtocolType.Udp, "TShock REST @ Port: " + RestPort);
+					//Udp &= SharpUPnP.ForwardPort(RestPort, ProtocolType.Udp, "TShock REST @ Port: " + RestPort);
 					Tcp &= SharpUPnP.ForwardPort(RestPort, ProtocolType.Tcp, "TShock REST @ Port: " + RestPort);
-				}
-                Success =  Udp & Tcp;
+                Success =  Tcp;
                 if (Success)
                 {
                     Console.WriteLine("(UPnP) Port Forward succesful.");
@@ -102,9 +100,9 @@ namespace UPnP
             if (Discovered)
             {
                 Console.WriteLine("(UPnP) Disposing port forward.");
-                SharpUPnP.DeleteForwardingRule(Netplay.serverPort, ProtocolType.Udp);
-                SharpUPnP.DeleteForwardingRule(Netplay.serverPort, ProtocolType.Tcp);
-				SharpUPnP.DeleteForwardingRule(RestPort, ProtocolType.Udp);
+                //SharpUPnP.DeleteForwardingRule(Netplay.ListenPort, ProtocolType.Udp);
+                SharpUPnP.DeleteForwardingRule(Netplay.ListenPort, ProtocolType.Tcp);
+				//SharpUPnP.DeleteForwardingRule(RestPort, ProtocolType.Udp);
 				SharpUPnP.DeleteForwardingRule(RestPort, ProtocolType.Tcp);
             }
             else
@@ -118,18 +116,18 @@ namespace UPnP
             if (Discovered)
             {
 				RestPort = TShock.Config.RestApiPort;
-                bool dTcp = SharpUPnP.DeleteForwardingRule(Netplay.serverPort, ProtocolType.Tcp);
-                bool dUdp = SharpUPnP.DeleteForwardingRule(Netplay.serverPort, ProtocolType.Udp);
+                bool dTcp = SharpUPnP.DeleteForwardingRule(Netplay.ListenPort, ProtocolType.Tcp);
+                //bool dUdp = SharpUPnP.DeleteForwardingRule(Netplay.ListenPort, ProtocolType.Udp);
 				if (TShock.Config.RestApiEnabled)
 				{
 					dTcp &= SharpUPnP.DeleteForwardingRule(RestPort, ProtocolType.Tcp);
-					dUdp &= SharpUPnP.DeleteForwardingRule(RestPort, ProtocolType.Udp);
+					//dUdp &= SharpUPnP.DeleteForwardingRule(RestPort, ProtocolType.Udp);
 				}
-                if (dTcp & dUdp)
+                if (dTcp)// & dUdp)
                 {
-                    bool iUdp = SharpUPnP.ForwardPort(Netplay.serverPort, ProtocolType.Udp, "TShock @ Port: " + Netplay.serverPort);
-                    bool iTcp = SharpUPnP.ForwardPort(Netplay.serverPort, ProtocolType.Tcp, "TShock @ Port: " + Netplay.serverPort);
-                    if (iUdp & iTcp)
+                    //bool iUdp = SharpUPnP.ForwardPort(Netplay.ListenPort, ProtocolType.Udp, "TShock @ Port: " + Netplay.ListenPort);
+                    bool iTcp = SharpUPnP.ForwardPort(Netplay.ListenPort, ProtocolType.Tcp, "TShock @ Port: " + Netplay.ListenPort);
+                    if (iTcp)//(iUdp & iTcp)
                     {
                         Console.WriteLine("(UPnP) Port Forward on request succesful.");
                         TShock.Log.Info("(UPnP) Port Forward on request succesful.");

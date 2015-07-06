@@ -188,7 +188,7 @@ namespace UPnP
         {
             if (string.IsNullOrEmpty(_serviceUrl))  return false;
 
-            IPHostEntry ipEntry = Dns.GetHostByName(Dns.GetHostName());
+            IPHostEntry ipEntry = Dns.GetHostEntry(Dns.GetHostName()); // Dns.GetHostByName(Dns.GetHostName());
             IPAddress addr = ipEntry.AddressList[0];
 
             XmlDocument xdoc = SOAPRequest(_serviceUrl,
